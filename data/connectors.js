@@ -2,7 +2,7 @@ import Sequelize from 'sequelize';
 import casual from 'casual';
 import _ from 'lodash';
 import fetch from 'node-fetch';
-import Mongoose from 'mongoose';
+// import Mongoose from 'mongoose';
 import { psFetcher, hsnFetcher, newEggFetcher } from './resolvers';
 import { NewEggCrawler } from 'grabr-crawler';
 
@@ -106,18 +106,18 @@ ProductModel.hasMany(FilterModel, { as: 'filters' });
 ProductModel.hasMany(ListingModel, { as: 'listings' });
 ListingModel.belongsTo(ProductModel);
 
-Mongoose.Promise = global.Promise;
+// Mongoose.Promise = global.Promise;
 
-const mongo = Mongoose.connect('mongodb://localhost/views', {
-  useMongoClient: true,
-});
+// const mongo = Mongoose.connect('mongodb://localhost/views', {
+//   useMongoClient: true,
+// });
 
-const ViewSchema = Mongoose.Schema({
-  postId: Number,
-  views: Number,
-});
+// const ViewSchema = Mongoose.Schema({
+//   postId: Number,
+//   views: Number,
+// });
 
-const View = Mongoose.model('views', ViewSchema);
+// const View = Mongoose.model('views', ViewSchema);
 
 const Author = db.models.author;
 const Post = db.models.post;
