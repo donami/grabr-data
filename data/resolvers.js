@@ -3,7 +3,7 @@ import {
   Product,
   Category,
   Listing,
-  View,
+  // View,
   Fetcher,
   Filter,
   Site,
@@ -1219,9 +1219,9 @@ const resolvers = {
     author(post) {
       return post.getAuthor();
     },
-    views(post) {
-      return View.findOne({ postId: post.id }).then(view => view.views);
-    },
+    // views(post) {
+    //   return View.findOne({ postId: post.id }).then(view => view.views);
+    // },
   },
 };
 
