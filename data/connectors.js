@@ -6,13 +6,18 @@ import Mongoose from 'mongoose';
 import { psFetcher, hsnFetcher, newEggFetcher } from './resolvers';
 import { NewEggCrawler } from 'grabr-crawler';
 
-const db = new Sequelize('grabr', 'root', 'hejsan', {
-  dialect: 'mysql',
-  // storage: './grabr3.sqlite',
-  // storage: './blog.sqlite',
-  // retry: {
-  //   max: 40,
-  // },
+// const db = new Sequelize('grabr', 'root', 'hejsan', {
+//   dialect: 'mysql',
+//   // storage: './grabr3.sqlite',
+//   // storage: './blog.sqlite',
+//   // retry: {
+//   //   max: 40,
+//   // },
+// });
+
+const db = new Sequelize(process.env.DATABASE_URL, {
+  native: true,
+  // Look to the next section for possible options
 });
 
 // const db = new Sequelize('blog', null, null, {
