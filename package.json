@@ -21,9 +21,7 @@
     "node-fetch": "^1.7.3",
     "puppeteer": "^1.12.2",
     "sequelize": "^4.42.0",
-    "sqlite": "^3.0.0"
-  },
-  "devDependencies": {
+    "sqlite": "^3.0.0",
     "babel-cli": "^6.26.0",
     "babel-preset-env": "^1.6.1",
     "nodemon": "^1.12.1"
