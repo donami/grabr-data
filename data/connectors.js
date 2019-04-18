@@ -21,6 +21,8 @@ import { NewEggCrawler } from 'grabr-crawler';
 //   // Look to the next section for possible options
 // });
 
+// var db = new Sequelize('postgresql://postgres:hejsan@localhost/grabr', {
+// var db = new Sequelize(process.env.DATABASE_URL, {
 var db = new Sequelize(process.env.DATABASE_URL, {
   dialect: 'postgres',
   dialectOptions: {
@@ -168,166 +170,166 @@ const _fetchers = [
 ];
 
 // modify the mock data creation to also create some views:
-// casual.seed(123);
-// db.sync({ force: true }).then(async () => {
-//   const proshopSite = await SiteModel.create({
-//     title: 'Proshop',
-//     url: 'https://proshop.se',
-//   });
-//   const neweggSite = await SiteModel.create({
-//     title: 'NewEgg',
-//     url: 'https://newegg.com',
-//   });
-//   const hsnSite = await SiteModel.create({
-//     title: 'HSN',
-//     url: 'https://hsn.com',
-//   });
+casual.seed(123);
+db.sync({ force: true }).then(async () => {
+  const proshopSite = await SiteModel.create({
+    title: 'Proshop',
+    url: 'https://proshop.se',
+  });
+  const neweggSite = await SiteModel.create({
+    title: 'NewEgg',
+    url: 'https://newegg.com',
+  });
+  const hsnSite = await SiteModel.create({
+    title: 'HSN',
+    url: 'https://hsn.com',
+  });
 
-//   await FilterModel.create({ key: 'Size', values: 'XL, L' });
+  await FilterModel.create({ key: 'Size', values: 'XL, L' });
 
-//   await CategoryModel.create({
-//     title: 'Cameras',
-//     root: true,
-//   }).then(async category => {
-//     const fetcher = await FetcherModel.create(_fetchers[3]);
+  await CategoryModel.create({
+    title: 'Cameras',
+    root: true,
+  }).then(async category => {
+    const fetcher = await FetcherModel.create(_fetchers[3]);
 
-//     return Promise.all([
-//       fetcher.setCategory(category),
-//       fetcher.setSite(hsnSite),
-//     ]);
-//   });
+    return Promise.all([
+      fetcher.setCategory(category),
+      fetcher.setSite(hsnSite),
+    ]);
+  });
 
-//   await CategoryModel.create({
-//     title: 'Computer Parts',
-//     root: true,
-//   }).then(async computerPartsCategory => {
-//     return CategoryModel.create({
-//       title: 'CPUs / Processors',
-//       root: false,
-//     }).then(async category => {
-//       category.update({ parent: computerPartsCategory.id });
-//       await category.save();
+  await CategoryModel.create({
+    title: 'Computer Parts',
+    root: true,
+  }).then(async computerPartsCategory => {
+    return CategoryModel.create({
+      title: 'CPUs / Processors',
+      root: false,
+    }).then(async category => {
+      category.update({ parent: computerPartsCategory.id });
+      await category.save();
 
-//       const fetcher = await FetcherModel.create(_fetchers[2]);
-//       return Promise.all([
-//         fetcher.setCategory(category),
-//         fetcher.setSite(neweggSite),
-//       ]);
-//     });
-//   });
+      const fetcher = await FetcherModel.create(_fetchers[2]);
+      return Promise.all([
+        fetcher.setCategory(category),
+        fetcher.setSite(neweggSite),
+      ]);
+    });
+  });
 
-//   await CategoryModel.create({
-//     title: 'Cables',
-//   }).then(async category => {
-//     const fetcher = await FetcherModel.create(_fetchers[0]);
-//     return Promise.all([
-//       fetcher.setCategory(category),
-//       fetcher.setSite(proshopSite),
-//     ]);
-//   });
+  await CategoryModel.create({
+    title: 'Cables',
+  }).then(async category => {
+    const fetcher = await FetcherModel.create(_fetchers[0]);
+    return Promise.all([
+      fetcher.setCategory(category),
+      fetcher.setSite(proshopSite),
+    ]);
+  });
 
-//   await CategoryModel.create({
-//     title: 'Laptops',
-//   }).then(async category => {
-//     const childCategory = await CategoryModel.create({
-//       title: 'MacBook',
-//       root: false,
-//     });
-//     const anotherChild = await CategoryModel.create({
-//       title: 'Small MacBooks',
-//       root: false,
-//     });
-//     const largeMacBooks = await CategoryModel.create({
-//       title: 'Large MacBooks',
-//       root: false,
-//     });
+  await CategoryModel.create({
+    title: 'Laptops',
+  }).then(async category => {
+    const childCategory = await CategoryModel.create({
+      title: 'MacBook',
+      root: false,
+    });
+    const anotherChild = await CategoryModel.create({
+      title: 'Small MacBooks',
+      root: false,
+    });
+    const largeMacBooks = await CategoryModel.create({
+      title: 'Large MacBooks',
+      root: false,
+    });
 
-//     await childCategory.setChildren([anotherChild, largeMacBooks]);
+    await childCategory.setChildren([anotherChild, largeMacBooks]);
 
-//     await category.setChildren([childCategory]);
+    await category.setChildren([childCategory]);
 
-//     const fetcher = await FetcherModel.create(_fetchers[1]);
-//     return Promise.all([
-//       fetcher.setCategory(category),
-//       fetcher.setSite(proshopSite),
-//     ]);
-//   });
+    const fetcher = await FetcherModel.create(_fetchers[1]);
+    return Promise.all([
+      fetcher.setCategory(category),
+      fetcher.setSite(proshopSite),
+    ]);
+  });
 
-//   const fetchers = await Fetcher.findAll({
-//     include: [
-//       {
-//         model: Site,
-//         as: 'site',
-//       },
-//     ],
-//   });
+  const fetchers = await Fetcher.findAll({
+    include: [
+      {
+        model: Site,
+        as: 'site',
+      },
+    ],
+  });
 
-//   const promises = fetchers.map(fetcher => {
-//     if (fetcher.site.title === 'Proshop') {
-//       return psFetcher({
-//         url: fetcher.url,
-//         site: fetcher.site,
-//         categoryId: fetcher.categoryId,
-//       });
-//     } else if (fetcher.site.title === 'NewEgg') {
-//       return newEggFetcher({
-//         url: fetcher.url,
-//         site: fetcher.site,
-//         categoryId: fetcher.categoryId,
-//       });
-//     } else if (fetcher.site.title === 'HSN') {
-//       return hsnFetcher({
-//         url: fetcher.url,
-//         site: fetcher.site,
-//         categoryId: fetcher.categoryId,
-//       });
-//     }
-//     return Promise.resolve();
-//   });
+  const promises = fetchers.map(fetcher => {
+    if (fetcher.site.title === 'Proshop') {
+      return psFetcher({
+        url: fetcher.url,
+        site: fetcher.site,
+        categoryId: fetcher.categoryId,
+      });
+    } else if (fetcher.site.title === 'NewEgg') {
+      return newEggFetcher({
+        url: fetcher.url,
+        site: fetcher.site,
+        categoryId: fetcher.categoryId,
+      });
+    } else if (fetcher.site.title === 'HSN') {
+      return hsnFetcher({
+        url: fetcher.url,
+        site: fetcher.site,
+        categoryId: fetcher.categoryId,
+      });
+    }
+    return Promise.resolve();
+  });
 
-//   await Promise.all(promises);
+  await Promise.all(promises);
 
-//   const listing = await Listing.findOne({
-//     where: { site: 'NewEgg' },
-//     include: [
-//       {
-//         model: Product,
-//         as: 'product',
-//       },
-//     ],
-//   });
-//   const getFilters = listing => {
-//     return new Promise(async resolve => {
-//       const crawler = new NewEggCrawler();
+  const listing = await Listing.findOne({
+    where: { site: 'NewEgg' },
+    include: [
+      {
+        model: Product,
+        as: 'product',
+      },
+    ],
+  });
+  const getFilters = listing => {
+    return new Promise(async resolve => {
+      const crawler = new NewEggCrawler();
 
-//       if (!listing) {
-//         return resolve();
-//       }
+      if (!listing) {
+        return resolve();
+      }
 
-//       const res = await crawler.crawlProduct(listing.url);
+      const res = await crawler.crawlProduct(listing.url);
 
-//       const filters = await Promise.all(
-//         (res || []).map(item => {
-//           return Filter.create(item).then(item => {
-//             return item.id;
-//           });
-//         })
-//       );
+      const filters = await Promise.all(
+        (res || []).map(item => {
+          return Filter.create(item).then(item => {
+            return item.id;
+          });
+        })
+      );
 
-//       const product = await Product.findById(listing.product.id);
+      const product = await Product.findById(listing.product.id);
 
-//       await product.setFilters(filters);
+      await product.setFilters(filters);
 
-//       await product.save();
+      await product.save();
 
-//       return resolve();
-//     });
-//   };
+      return resolve();
+    });
+  };
 
-//   await getFilters(listing);
+  await getFilters(listing);
 
-//   return Promise.resolve();
-// });
+  return Promise.resolve();
+});
 
 export {
   Author,
