@@ -15,10 +15,17 @@ import { NewEggCrawler } from 'grabr-crawler';
 //   // },
 // });
 
-const db = new Sequelize(process.env.DATABASE_URL, {
-  ssl: true,
-  // native: true,
-  // Look to the next section for possible options
+// const db = new Sequelize(process.env.DATABASE_URL, {
+//   ssl: true,
+//   // native: true,
+//   // Look to the next section for possible options
+// });
+
+var db = new Sequelize(process.env.DATABASE_URL, {
+  dialect: 'postgres',
+  dialectOptions: {
+    ssl: true,
+  },
 });
 
 // const db = new Sequelize('blog', null, null, {
