@@ -6,14 +6,7 @@ import fetch from 'node-fetch';
 import { psFetcher, hsnFetcher, newEggFetcher } from './resolvers';
 import { NewEggCrawler } from 'grabr-crawler';
 
-// const db = new Sequelize('grabr', 'root', 'hejsan', {
-//   dialect: 'mysql',
-//   // storage: './grabr3.sqlite',
-//   // storage: './blog.sqlite',
-//   // retry: {
-//   //   max: 40,
-//   // },
-// });
+const production = process.env.DATABASE_URL ? true : false;
 
 // const db = new Sequelize(process.env.DATABASE_URL, {
 //   ssl: true,
@@ -23,12 +16,15 @@ import { NewEggCrawler } from 'grabr-crawler';
 
 // var db = new Sequelize('postgresql://postgres:hejsan@localhost/grabr', {
 // var db = new Sequelize(process.env.DATABASE_URL, {
-var db = new Sequelize(process.env.DATABASE_URL, {
-  dialect: 'postgres',
-  dialectOptions: {
-    ssl: true,
-  },
-});
+var db = new Sequelize(
+  process.env.DATABASE_URL || 'postgresql://postgres:hejsan@localhost/grabr',
+  {
+    dialect: 'postgres',
+    dialectOptions: {
+      ssl: production ? true : false,
+    },
+  }
+);
 
 // const db = new Sequelize('blog', null, null, {
 //   dialect: 'sqlite',

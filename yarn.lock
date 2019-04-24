@@ -1922,10 +1922,10 @@ got@^6.7.1:
     unzip-response "^2.0.1"
     url-parse-lax "^1.0.0"
 
-grabr-crawler@^1.0.2:
-  version "1.0.2"
-  resolved "https://registry.yarnpkg.com/grabr-crawler/-/grabr-crawler-1.0.2.tgz#21b9077d36fabb01833f9ad39d7298b96ad4db09"
-  integrity sha512-YR4I/Co9+YaRbRzGRctMGwa5Reb0Ik74pGB24pJDZZV94axENZ0mstLgK3HM3QJEW2WDUKCP2rM4/96ahqjBNA==
+grabr-crawler@^1.0.4:
+  version "1.0.4"
+  resolved "https://registry.yarnpkg.com/grabr-crawler/-/grabr-crawler-1.0.4.tgz#25f6507b08ed80456169ae2207004521b60776bd"
+  integrity sha512-GobDehKuuITYPhDIBNS4Uqpre5/AY/EYL/hNbiEqarfWvXoEEIRxoLnxXcEYk8ZTpltXeDosi/ru3mq/X1fVHA==
   dependencies:
     "@types/puppeteer" "^1.12.3"
     puppeteer "^1.14.0"
