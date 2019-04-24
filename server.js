@@ -9,7 +9,8 @@ const port = process.env.PORT || 3030;
 
 const graphQLServer = express();
 
-graphQLServer.use('*', cors({ origin: 'http://localhost:3000' }));
+graphQLServer.use(cors());
+// graphQLServer.use('*', cors({ origin: 'http://localhost:3000' }));
 
 graphQLServer.use('/graphql', bodyParser.json(), graphqlExpress({ schema }));
 graphQLServer.use('/graphiql', graphiqlExpress({ endpointURL: '/graphql' }));
